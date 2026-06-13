@@ -7,5 +7,3 @@ Har du spørsmål om kjøp, ønsker å sette deg på venteliste, eller bare vil 
 Har du spørsmål om besøk for å sjekke om du tåler rasen sibirkatt, må dette gå gjennom Sibirkattens Venner, da jeg er et registrert testhjem der.
 
 Innehaver av NO*Tokleperlen: **Siri Katrine Tokle**
-
-<!-- TODO: legg inn e-postadresse og Facebook-lenke her -->

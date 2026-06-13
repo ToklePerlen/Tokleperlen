@@ -1,4 +1,4 @@
-baseURL = "https://tokeperlen.github.io/TokelePerlen/"
+baseURL = "https://devseviq.github.io/TokelePerlen/"
 # NOTE: the GitHub Pages workflow overrides baseURL automatically (it uses the
 # value GitHub reports), so you don't need to edit this when you attach the
 # tokleperlen.com / .no custom domain. This value is only used by `hugo server`.
@@ -16,6 +16,9 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
   description = "NO*Tokleperlen – profesjonelt oppdrett av friske, renrasede sibirkatter. Den allergivennlige rasen."
+  # Preview build: keep the github.io staging copy out of search engines.
+  # Set to false (or remove) once the real tokleperlen.com domain is attached.
+  noindex = true
 
 [markup.goldmark.renderer]
   unsafe = true            # allow inline HTML / comments in page content

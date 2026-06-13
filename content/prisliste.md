@@ -12,4 +12,4 @@ Når jeg har funnet ut hvem jeg ønsker å selge til, starter jeg øverst på ve
 
 ## Steg 3: Reservasjon av kattungen
 
-<!-- TODO: fyll inn resten av reservasjons-/kjøpsbeskrivelsen og prisene fra dagens side -->
+*Mer informasjon om reservasjon og priser kommer.*
