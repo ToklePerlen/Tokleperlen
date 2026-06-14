@@ -5,6 +5,18 @@ exposing the API key to the browser. The page sends the chat history + a shared
 passphrase; this Worker checks the passphrase, calls the Anthropic API, and
 streams the reply back.
 
+> **Live deployment:** the canonical, page-facing Worker is **`tokleperlen-assistant-pro`**
+> (the `name` in `wrangler.toml`), meant to run on a key from the **`webchat`** Anthropic
+> workspace. An earlier `tokleperlen-assistant` Worker (on Siri's capped `siri` key) was
+> the first test — left as-is and unused; delete it when convenient.
+>
+> **Edit via `wrangler deploy`, not a raw API upload.** `wrangler deploy` rebuilds from
+> this source and keeps the secrets. A raw API PUT replaces the binding set and wipes
+> `ANTHROPIC_API_KEY` / `ASSISTANT_PASSPHRASE`, so the Worker would 500 until re-added.
+>
+> When Siri finishes, the `/assistent/` page has a **"Send til Espen"** button that posts
+> the note straight to the `innspill` admin view — no download/email step needed.
+
 ```
 /assistent/ page  ──POST {messages}──►  this Worker  ──►  api.anthropic.com
    (X-Access-Code)                       (holds key)       (claude-sonnet-4-6)
@@ -38,7 +50,7 @@ npx wrangler secret put ASSISTANT_PASSPHRASE   # the code you give Siri
 ## Connect the site to it
 
 Copy the Worker URL printed by `wrangler deploy`
-(e.g. `https://tokleperlen-assistant.<your-subdomain>.workers.dev`) into the
+(e.g. `https://tokleperlen-assistant-pro.<your-subdomain>.workers.dev`) into the
 site's `hugo.toml` (one level up from this `worker/` folder):
 
 ```toml

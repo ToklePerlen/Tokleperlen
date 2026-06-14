@@ -1,4 +1,4 @@
-name = "tokleperlen-assistant"
+name = "tokleperlen-assistant-pro"
 main = "src/index.js"
 compatibility_date = "2024-11-11"
 

@@ -51,6 +51,7 @@
   </form>
 
   <div class="assistant-actions">
+    <button id="handoff" type="button" class="ghost">Send til Espen</button>
     <button id="download" type="button" class="ghost">Last ned notat (.md)</button>
     <button id="copy" type="button" class="ghost">Kopier notat</button>
     <button id="reset" type="button" class="ghost">Start på nytt</button>
@@ -225,6 +226,41 @@
       btn.textContent = "Kopiert!";
       setTimeout(function () { btn.textContent = "Kopier notat"; }, 1500);
     } catch (e) { window.alert("Kunne ikke kopiere."); }
+  });
+
+  // Hand-off: send the finished note straight to Espen (lands in his innspill-oversikt).
+  var INNSPILL_URL = "https://tokleperlen-innspill.espen-severinsen.workers.dev";
+  function fullTranscript() {
+    if (!messages.length) return "";
+    var out = "Samtale med assistenten (intet ferdig notat ennå):\n\n";
+    for (var i = 0; i < messages.length; i++) {
+      out += (messages[i].role === "user" ? "Siri" : "Assistent") + ": " + messages[i].content + "\n\n";
+    }
+    return out.trim();
+  }
+  document.getElementById("handoff").addEventListener("click", async function () {
+    var btn = document.getElementById("handoff");
+    var text = latestBrief() || fullTranscript();
+    if (!text) { window.alert("Det er ingenting å sende ennå – skriv litt med assistenten først."); return; }
+    btn.disabled = true; btn.textContent = "Sender …";
+    try {
+      var res = await fetch(INNSPILL_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "Assistent-notat — Siri", summary: text }),
+      });
+      var ok = false; try { var j = await res.json(); ok = j && j.success; } catch (e) {}
+      if (res.ok && ok) {
+        btn.textContent = "Sendt til Espen ✓";
+        setTimeout(function () { btn.textContent = "Send til Espen"; btn.disabled = false; }, 2500);
+      } else {
+        btn.textContent = "Send til Espen"; btn.disabled = false;
+        window.alert("Kunne ikke sende akkurat nå. Du kan laste ned notatet og sende det til Espen i stedet.");
+      }
+    } catch (e) {
+      btn.textContent = "Send til Espen"; btn.disabled = false;
+      window.alert("Nettverksfeil. Last gjerne ned notatet og send det til Espen.");
+    }
   });
 
   document.getElementById("reset").addEventListener("click", function () {

@@ -49,8 +49,9 @@ export const SYSTEM_PROMPT = [
   "- Frist:",
   "- Apne sporsmal:",
   "",
-  "Etter notatet: minn henne vennlig pa at hun kan trykke \"Last ned notat\" for a",
-  "lagre det og sende det til Espen. Hold deg kort.",
+  "Etter notatet: minn henne vennlig pa at hun kan trykke \"Send til Espen\" for a",
+  "sende notatet rett til ham (eller \"Last ned notat\" for a lagre en kopi).",
+  "Hold deg kort.",
 ].join("\n");
 
 // CORS headers for a given request Origin. Only echoes the Origin back if it is
