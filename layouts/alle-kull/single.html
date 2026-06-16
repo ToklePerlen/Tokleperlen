@@ -1,0 +1,39 @@
+{{ define "main" }}
+<article class="page page--wide">
+  <header class="page-head">
+    <p class="kull-back"><a href="{{ "/alle-kull/" | relURL }}">← Alle våre kull</a></p>
+    <h1 class="page-title">{{ .Title }}</h1>
+  </header>
+
+  <dl class="kull-meta kull-meta--single">
+    <div><dt>Født</dt><dd>{{ with .Date }}{{ if gt .Year 1 }}{{ .Format "02.01.2006" }}{{ else }}<span class="tbd">kommer</span>{{ end }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+    <div><dt>Mor</dt><dd>{{ with .Params.mor }}{{ . }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+    <div><dt>Far</dt><dd>{{ with .Params.far }}{{ . }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+    <div><dt>Antall kattunger</dt><dd>{{ with .Params.antall }}{{ . }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+  </dl>
+
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  {{ if eq (.Params.media | default "info") "video" }}
+    {{ with .Params.youtube }}
+      <p><a class="kull-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">Se video på YouTube <span aria-hidden="true">↗</span></a></p>
+    {{ end }}
+  {{ end }}
+
+  {{ $images := .Resources.ByType "image" }}
+  {{ with $images }}
+    <div class="kull-gallery">
+      {{ range . }}
+        <a class="kull-gallery__item" href="{{ .RelPermalink }}" target="_blank" rel="noopener">
+          {{ $thumb := .Resize "480x q82" }}
+          <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" loading="lazy" alt="{{ $.Title }}">
+        </a>
+      {{ end }}
+    </div>
+  {{ else }}
+    {{ if eq (.Params.media | default "info") "galleri" }}
+      <p class="prose"><em>Bilder kommer.</em></p>
+    {{ end }}
+  {{ end }}
+</article>
+{{ end }}

@@ -99,6 +99,12 @@ collections:
         fields:
           - { name: title, label: Tittel, widget: string }
           - { name: body, label: Innhold, widget: markdown }
+      - name: alle-kull-intro
+        label: Alle våre kull (introtekst)
+        file: content/alle-kull/_index.md
+        fields:
+          - { name: title, label: Tittel, widget: string }
+          - { name: body, label: Innhold, widget: markdown }
 
   # ============== Kattunger / kull (Siri legger til disse) ==============
   - name: kattunger
@@ -123,6 +129,38 @@ collections:
         options: [Ledig, Reservert, Solgt, Beholdes]
       - { name: id, label: ID-nr (valgfritt), widget: string, required: false }
       - { name: bilde, label: Hovedbilde, widget: image, required: false }
+      - { name: body, label: Beskrivelse, widget: markdown, required: false }
+
+  # ============== Alle våre kull (historisk arkiv) ==============
+  - name: alle-kull
+    label: Alle våre kull
+    label_singular: Kull (arkiv)
+    description: Alle kull gjennom årene. Fyll inn mor, far og antall, og last opp bilder for kull som skal ha eget galleri.
+    folder: content/alle-kull
+    path: "{{slug}}/index"
+    media_folder: ""          # bilder lagres i samme mappe som kullet
+    public_folder: ""
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{fields.media}}"
+    sortable_fields: [kullnr, date, title]
+    fields:
+      - { name: title, label: Navn / kull, widget: string }
+      - { name: letter, label: Kull-bokstav, widget: string, hint: "F.eks. U" }
+      - { name: kullnr, label: Rekkefølge-nummer, widget: number, value_type: int, hint: "A=1, B=2 … U=21. Styrer sortering (høyest øverst)." }
+      - { name: date, label: Født / dato, widget: datetime, date_format: "DD.MM.YYYY", time_format: false, required: false }
+      - { name: mor, label: Mor, widget: string, required: false }
+      - { name: far, label: Far, widget: string, required: false }
+      - { name: antall, label: Antall kattunger, widget: string, required: false }
+      - name: media
+        label: Visning
+        widget: select
+        default: info
+        options:
+          - { label: "Video (lenke til YouTube)", value: video }
+          - { label: "Bildegalleri (egen side)", value: galleri }
+          - { label: "Kun info", value: info }
+      - { name: youtube, label: YouTube-spilleliste (URL), widget: string, required: false }
       - { name: body, label: Beskrivelse, widget: markdown, required: false }
 
   # ============== Avlskatter ==============

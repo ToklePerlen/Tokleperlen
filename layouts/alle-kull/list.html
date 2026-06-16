@@ -1,0 +1,41 @@
+{{ define "main" }}
+<article class="page page--wide">
+  <header class="page-head">
+    <h1 class="page-title">{{ .Title }}</h1>
+  </header>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  {{ $kull := sort .Pages "Params.kullnr" "desc" }}
+  {{ with $kull }}
+  <ul class="kull-list">
+    {{ range . }}
+      {{ $media := .Params.media | default "info" }}
+      <li class="kull-item kull-item--{{ $media }}">
+        <div class="kull-main">
+          <div class="kull-head">
+            <span class="kull-name">{{ .Title }}</span>
+            {{ with .Date }}{{ if gt .Year 1 }}<span class="kull-date">{{ .Format "02.01.2006" }}</span>{{ else }}<span class="kull-date kull-date--tbd">dato kommer</span>{{ end }}{{ else }}<span class="kull-date kull-date--tbd">dato kommer</span>{{ end }}
+          </div>
+          <dl class="kull-meta">
+            <div><dt>Mor</dt><dd>{{ with .Params.mor }}{{ . }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+            <div><dt>Far</dt><dd>{{ with .Params.far }}{{ . }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+            <div><dt>Antall kattunger</dt><dd>{{ with .Params.antall }}{{ . }}{{ else }}<span class="tbd">kommer</span>{{ end }}</dd></div>
+          </dl>
+        </div>
+        <div class="kull-action">
+          {{ if eq $media "video" }}
+            {{ with .Params.youtube }}
+              <a class="kull-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">Se video <span aria-hidden="true">↗</span><span class="sr-only"> (åpner YouTube i ny fane)</span></a>
+            {{ end }}
+          {{ else if eq $media "galleri" }}
+            <a class="kull-link" href="{{ .RelPermalink }}">Se bildegalleri <span aria-hidden="true">→</span></a>
+          {{ else }}
+            <span class="kull-link kull-link--muted">Informasjon kommer</span>
+          {{ end }}
+        </div>
+      </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+</article>
+{{ end }}

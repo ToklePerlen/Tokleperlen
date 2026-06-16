@@ -188,6 +188,56 @@ main { flex: 1; }
 .badge--reservert { background: #fdf3e2; border-color: #f0dcb4; color: #97651a; }
 .badge--solgt, .badge--beholdes { background: #f1efeb; color: var(--muted); }
 
+/* ---------- Alle våre kull (litter archive) ---------- */
+.page--wide { max-width: calc(var(--maxw) + 9rem); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.tbd { color: var(--muted); font-style: italic; }
+
+.kull-list { list-style: none; margin: 2rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .8rem; }
+.kull-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold);
+  border-radius: var(--r); padding: 1rem 1.2rem;
+}
+.kull-item--info { border-left-color: var(--line); }
+.kull-main { min-width: 0; }
+.kull-head { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+.kull-name { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.15rem; }
+.kull-date { color: var(--muted); font-size: .85rem; }
+.kull-date--tbd { font-style: italic; }
+.kull-meta { display: flex; flex-wrap: wrap; gap: .3rem 1.4rem; margin: .55rem 0 0; }
+.kull-meta > div { display: flex; gap: .4rem; align-items: baseline; }
+.kull-meta dt { font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.kull-meta dd { margin: 0; font-size: .9rem; }
+.kull-meta--single {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r);
+  padding: 1rem 1.2rem; margin: 1.6rem 0; gap: .6rem 2rem;
+}
+.kull-action { flex: 0 0 auto; }
+.kull-link {
+  display: inline-block; white-space: nowrap; font-size: .9rem; font-weight: 600;
+  text-decoration: none; color: #1c1a16; background: var(--gold);
+  padding: .5rem .9rem; border-radius: var(--r); transition: background .15s ease;
+}
+.kull-link:hover { background: var(--gold-soft); }
+.kull-link--muted { background: none; color: var(--muted); font-weight: 400; font-style: italic; padding-right: 0; }
+.kull-back { margin: 0 0 .6rem; font-size: .85rem; }
+.kull-back a { color: var(--muted); text-decoration: none; }
+.kull-back a:hover { color: var(--gold); }
+
+.kull-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin: 1.8rem 0; }
+.kull-gallery__item { display: block; border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); }
+.kull-gallery__item img { width: 100%; height: 160px; object-fit: cover; transition: transform .2s ease; }
+.kull-gallery__item:hover img { transform: scale(1.04); }
+
+@media (max-width: 640px) {
+  .kull-item { flex-direction: column; align-items: stretch; gap: .8rem; }
+  .kull-action { align-self: flex-start; }
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--ink); color: #8f8b82; padding: 1.6rem 2.8rem;

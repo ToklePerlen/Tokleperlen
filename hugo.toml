@@ -64,6 +64,11 @@ disableKinds = ["taxonomy", "term"]
     url = "/kattunger/"
     weight = 3
   [[menu.main]]
+    name = "Alle våre kull"
+    parent = "kattunger"
+    url = "/alle-kull/"
+    weight = 4
+  [[menu.main]]
     name = "Planlagt kull"
     parent = "kattunger"
     url = "/planlagt-kull/"
