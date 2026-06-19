@@ -327,6 +327,36 @@ main { flex: 1; }
   .hero-overlay, .page, .site-footer { padding-left: 1.6rem; padding-right: 1.6rem; }
 }
 
+/* ---------- Top bar (slim masthead strip) ---------- */
+.topbar {
+  background: var(--ink); color: #e8e1d0;
+  font-size: .66rem; letter-spacing: .24em; text-transform: uppercase;
+  text-align: center; padding: .72rem 1.4rem; line-height: 1.4;
+}
+.topbar .dot { color: var(--brass); margin: 0 .7rem; }
+
+/* ---------- Statement band (breaks hero -> prose) ---------- */
+.statement {
+  padding: 3.8rem 3.2rem; text-align: center;
+  background: var(--paper-2);
+  border-top: 2px solid var(--brass); border-bottom: 1px solid var(--line);
+}
+.statement-eyebrow {
+  font-size: .72rem; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--brass-deep); margin: 0 0 1.1rem;
+}
+.statement-lead {
+  font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: clamp(1.45rem, 2.6vw, 2.05rem); line-height: 1.32; color: var(--ink);
+  max-width: 28ch; margin: 0 auto; letter-spacing: -.005em;
+}
+
+/* ---------- Section ticks in prose (vertical rhythm) ---------- */
+.prose h2:not(:first-child)::before {
+  content: ""; display: block; width: 40px; height: 2px; background: var(--brass);
+  margin: 0 0 1.4rem;
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
