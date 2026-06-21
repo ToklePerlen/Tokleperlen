@@ -4,16 +4,16 @@ Static site built with **Hugo**, with **Sveltia CMS** layered on top so Siri can
 kittens/litters and edit pages without touching code. Deploys to **GitHub Pages** via
 GitHub Actions. Content is in Norwegian; code/docs are in English.
 
-Repo: `devseviq/TokelePerlen` · push from your `devseviq` account.
+Repo: `ToklePerlen/Tokleperlen` (in the `ToklePerlen` org). Siri edits via the CMS,
+currently as the `devseviq` account.
 
 > **Current state (2026-06-21):** live on the custom domain **`https://www.tokleperlen.com`**
-> (GitHub Pages, HTTPS enforced); `https://tokleperlen.com` and
-> `https://devseviq.github.io/TokelePerlen/` redirect to it. The old Webnode site is
+> (GitHub Pages, HTTPS enforced); `https://tokleperlen.com` redirects to it. The old Webnode site is
 > still live and indexed on `tokleperlen.no` — the `.no` cutover is on hold pending Siri.
 > Old intake pages (`/innspill/`, `/last-opp/`, `/assistent/`) now redirect to the
 > Siri portal at `https://siri.sevnet.net/work/tokleperlen`.
-> Planned: this repo moves into the `tokle` GitHub org (a deliberate, watched step so the
-> custom domain doesn't drop). See `../TOKLE-FAMILY-EVAL-AND-EXPANSION-2026-06-21.md`.
+> Now in the `ToklePerlen` GitHub org as `ToklePerlen/Tokleperlen`; the custom domain
+> persisted through the move. See `../TOKLE-FAMILY-EVAL-AND-EXPANSION-2026-06-21.md`.
 > The "Fast DNS-only staging" section below is the rehearsal that produced this live state.
 
 ---
