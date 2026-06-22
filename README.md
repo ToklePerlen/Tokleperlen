@@ -13,7 +13,10 @@ currently as the `devseviq` account.
 > Old intake pages (`/innspill/`, `/last-opp/`, `/assistent/`) now redirect to the
 > Siri portal at `https://siri.sevnet.net/work/tokleperlen`.
 > Now in the `ToklePerlen` GitHub org as `ToklePerlen/Tokleperlen`; the custom domain
-> persisted through the move. See `../TOKLE-FAMILY-EVAL-AND-EXPANSION-2026-06-21.md`.
+> persisted through the move. GitHub Pages reports the domain/certificate as approved,
+> but external DNS still CNAMEs `www.tokleperlen.com` to `devseviq.github.io`; clean
+> that up during the broader DNS/Cloudflare cutover. See
+> `../TOKLE-FAMILY-EVAL-AND-EXPANSION-2026-06-21.md`.
 > The "Fast DNS-only staging" section below is the rehearsal that produced this live state.
 
 ---
@@ -66,8 +69,9 @@ hot-reload. `rg` tip: `hugo server --navigateToChanged` jumps the browser to the
 2. Push to `main`. `deploy.yml` builds Hugo and publishes.
 3. Site is live at the custom domain `https://www.tokleperlen.com/`.
 
-The workflow sets Hugo's `baseURL` automatically from what Pages reports, so you do **not**
-need to edit `hugo.toml` when the custom domain is attached.
+The workflow pins Hugo's `baseURL` to `https://www.tokleperlen.com/` so asset paths
+remain correct while GitHub Pages custom-domain reporting settles. Update
+`.github/workflows/deploy.yml` if the canonical domain changes.
 
 ---
 
@@ -85,6 +89,10 @@ this rehearsal.
    - `www` → CNAME → `devseviq.github.io`
    - apex `@` → A records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
 3. Wait for DNS to propagate; GitHub issues a Let's Encrypt cert. Tick **Enforce HTTPS** once it's available.
+
+Current cleanup note: this DNS-only staging still works, but after the repo moved to
+the `ToklePerlen` org the `www` CNAME is stale. Retarget it as part of the
+Cloudflare/DNS cutover instead of changing registrar/DNS ownership casually.
 
 For the real move off Webnode, use Cloudflare DNS instead. See the root workspace
 note `ops/tokleperlen-com-webnode-move-evaluation.md`.
