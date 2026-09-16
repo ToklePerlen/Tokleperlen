@@ -143,7 +143,7 @@ git commit, which triggers an automatic redeploy.
 
 ## To do
 
-- **Contact details** — add email + Facebook link in `content/kontakt.md` (placeholder marked `TODO`).
+- **Contact details** — complete in `content/kontakt.md` (email and Facebook are present).
 - **Prisliste** — fill in step 3 and any remaining text (`content/prisliste.md`).
 - **Images** — see below.
 
