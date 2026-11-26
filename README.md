@@ -95,44 +95,28 @@ the `ToklePerlen` org the `www` CNAME is stale. Retarget it as part of the
 Cloudflare/DNS cutover instead of changing registrar/DNS ownership casually.
 
 For the real move off Webnode, use Cloudflare DNS instead. See the root workspace
-note `ops/tokleperlen-com-webnode-move-evaluation.md`.
+note [Webnode move evaluation](https://github.com/espensev/sevnet-siri/blob/main/docs/ops/tokleperlen-com-webnode-move-evaluation.md).
 
 ---
 
 ## CMS login (one-time setup, so Siri can edit)
 
-The CMS commits to GitHub on the editor's behalf, which needs a GitHub OAuth helper. We use the
-official Cloudflare Worker. Steps:
+The CMS commits on the editor's behalf; add Siri as a repository collaborator.
+Use the canonical [authenticator setup](https://github.com/ToklePerlen/tokleperlen-backend/blob/main/workers/cms-auth/README.md#how-to-use-it)
+for Worker deployment, GitHub OAuth registration (`<YOUR_WORKER_URL>/callback`),
+`GITHUB_CLIENT_ID`, and secret `GITHUB_CLIENT_SECRET`.
 
-**A. Add Siri as a collaborator** — repo **Settings → Collaborators**. Her saves then commit as her.
+This site's `static/admin/config.yml` sets `backend.base_url` to
+`https://sveltia-cms-auth.espen-severinsen.workers.dev`; the OAuth homepage may be
+`https://www.tokleperlen.com`. The checked-in Worker requires `ALLOWED_DOMAINS`:
+`devseviq.github.io,tokleperlen.com,www.tokleperlen.com,tokleperlen.no,www.tokleperlen.no,localhost:1313`.
+Do not broaden it beyond intended CMS origins.
 
-**B. Deploy the auth Worker** — <https://github.com/sveltia/sveltia-cms-auth>
-Use the "Deploy to Cloudflare" button, or clone it and run `npx wrangler deploy`.
-Note the URL: `https://sveltia-cms-auth.<your-subdomain>.workers.dev`
-
-**C. Register a GitHub OAuth App** — github.com → **Settings → Developer settings → OAuth Apps → New**:
-   - Homepage URL: your site (e.g. `https://www.tokleperlen.com`)
-   - Authorization callback URL: `https://sveltia-cms-auth.<your-subdomain>.workers.dev/callback`
-   - Generate a client secret.
-
-**D. Add the credentials to the Worker** — Cloudflare dashboard → the `sveltia-cms-auth` service →
-**Settings → Variables**:
-   - `GITHUB_CLIENT_ID` = client id
-   - `GITHUB_CLIENT_SECRET` = client secret
-   - *(optional)* `ALLOWED_DOMAINS` = `tokleperlen.com,www.tokleperlen.com,devseviq.github.io`
-
-**E. Point the CMS at the Worker** — in `static/admin/config.yml`, set `backend.base_url` to your
-Worker URL. Commit & push.
-
-**F. Done.** Siri opens `…/admin/`, clicks **Log in with GitHub**, edits, and saves. Each save is a
-git commit, which triggers an automatic redeploy.
-
-> Note: GitHub's client-side PKCE login (which would remove the Worker entirely) is announced but
-> **not released yet**, so the Worker is the current approach. If anything below drifts, the
-> `sveltia-cms-auth` README is the source of truth.
+Siri opens `/admin/`, selects **Log in with GitHub**, edits and saves. Each save
+commits and triggers the Pages workflow. The authenticator README owns alternate
+login methods and upstream PKCE status.
 
 ---
-
 ## What Siri can edit (in `/admin/`)
 
 - **Sider** — the text of each fixed page (forside, om oppdrettet, om rasen, kontakt, prisliste, venteliste, kattehotell, utstyrsliste, planlagt kull).
